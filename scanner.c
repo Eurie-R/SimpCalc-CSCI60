@@ -20,9 +20,6 @@
 #include <string.h>
 #include "scanner.h"
 
-
-#define MATCH_REFERENCE_LINE_NUMBERS 1
-
 // DFA states, named after the circles in DFA.pdf.
 typedef enum {
     S_A,        // A: start state
@@ -163,7 +160,6 @@ static Token identifier_or_keyword(void) {
 
 // builds an error token for the offending character c, which is consumed.
 // the token carries the line BEFORE any newline adjustment below.
-// see MATCH_REFERENCE_LINE_NUMBERS for the newline handling.
 static Token lex_error(LexErrorKind kind, int c, int in_string) {
     Token t = make_token(T_ERROR);
     t.error = kind;
@@ -172,16 +168,12 @@ static Token lex_error(LexErrorKind kind, int c, int in_string) {
     } else if (c == '\n') {
         if (in_string) {
             /* Unterminated string: the reference counts this newline twice. */
-#if MATCH_REFERENCE_LINE_NUMBERS
             line++;
-#endif
             push_back('\n');            /* state A counts it (again) */
         } else {
             /* Bad number / bad '!' swallowed the newline:
                the reference does not count it. */
-#if !MATCH_REFERENCE_LINE_NUMBERS
             line++;
-#endif
         }
     }
     return t;

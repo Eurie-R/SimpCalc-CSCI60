@@ -130,6 +130,12 @@ static int scan_file(const char *in_name, const char *out_name) {
     do {
         t = gettoken();
         write_token(out, &t);
+
+        if (t.type == T_ERROR) { //stop if there's an error
+            fclose(out);
+            fclose(in);
+            return 0;
+        }
     } while (t.type != T_EOF);
 
     fclose(out);
