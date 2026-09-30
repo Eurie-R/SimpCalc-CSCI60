@@ -32,9 +32,9 @@ static void advance(void) {
     cur = gettoken();
 }
 
-// reports a syntax error on the line of the current token and stops parsing.
+// reports a syntax error of the current token and stops parsing.
 static void parse_error(const char *msg) {
-    fprintf(out, "Parse Error on line %d: %s.\n", cur.line, msg);
+    fprintf(out, "Parse Error: %s.\n", msg);
     longjmp(on_error, 1);
 }
 

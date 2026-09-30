@@ -87,21 +87,16 @@ static void make_output_name(const char *in_name, const char *replacement,
 static void write_token(FILE *out, const Token *t) {
     switch (t->type == T_ERROR ? t->error : ERR_NONE) {
     case ERR_ILLEGAL:
-        fprintf(out, "Lexical Error: Illegal character/character sequence   on line %d\n",
-                t->line);
-        fprintf(out, "Error  on line %d\n", t->line);
+        fprintf(out, "Lexical Error: Illegal character/character sequence\n");
         break;
     case ERR_NUMBER:
-        fprintf(out, "Lexical Error: Invalid number format   on line %d\n", t->line);
-        fprintf(out, "Error   on line %d\n", t->line);
+        fprintf(out, "Lexical Error: Invalid number format\n");
         break;
     case ERR_UNTERMINATED:
-        fprintf(out, "Lexical Error: Unterminated  on line %d\n", t->line);
-        fprintf(out, "Error   on line %d\n", t->line);
+        fprintf(out, "Lexical Error: Unterminated\n");
         break;
     case ERR_BANG:
-        fprintf(out, "Lexical Error reading character ! on line %d\n", t->line);
-        fprintf(out, "Error  on line %d\n", t->line);
+        fprintf(out, "Lexical Error reading character !\n");
         break;
     case ERR_NONE:
         fprintf(out, "%-31s%s\n", token_name(t->type), t->lexeme);

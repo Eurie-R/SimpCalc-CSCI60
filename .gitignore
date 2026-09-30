@@ -66,4 +66,8 @@ vcpkg_installed/
 
 # test output & cache
 Testing/
+testing/
 .cache/
+
+# Project Sample files
+PROJECT_SAMPLES-1/
